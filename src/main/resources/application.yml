@@ -1,0 +1,59 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:h2:mem:orderdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: false
+  web:
+    cors:
+      allow-credentials: true
+      allowed-origins:
+        - http://example.com
+      allowed-methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+      allowed-headers:
+        - Content-Type
+        - Authorization
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      platform: h2
+      mode: always
+
+
+  springdoc:
+    api-docs:
+      path: /v3/api-docs
+      groups:
+        enabled: true
+    swagger-ui:
+      path: /swagger-ui.html
+      operationsSorter: method
+      display-request-duration: true
+    default-consumes-media-type: application/json
+    default-produces-media-type: application/json
